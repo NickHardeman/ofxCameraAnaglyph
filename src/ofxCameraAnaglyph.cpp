@@ -18,6 +18,7 @@ ofxCameraAnaglyph::ofxCameraAnaglyph() {
     focalLength = 25.f;
     
     enableColorMask();
+    setRedEye( true );
     
     bHasRunOnce = false;
 }
@@ -30,7 +31,13 @@ void ofxCameraAnaglyph::beginLeft() {
     }
     
     calculateCamSettings( true );
-    if(isColorMaskEnabled()) glColorMask(true, false, false, true);
+    if(isColorMaskEnabled()) {
+        if( bLeftEyeRed ) {
+            glColorMask(true, false, false, true);
+        } else {
+            glColorMask(false, true, true, true);
+        }
+    }
     loadMatrices( true );
 }
 
@@ -50,7 +57,13 @@ void ofxCameraAnaglyph::beginRight() {
     calculateCamSettings( false );
     
     glClear(GL_DEPTH_BUFFER_BIT);
-    if(isColorMaskEnabled()) glColorMask(false, true, true, true);
+    if(isColorMaskEnabled()) {
+        if( bLeftEyeRed ) {
+            glColorMask(false, true, true, true);
+        } else {
+            glColorMask(true, false, false, true);
+        }
+    }
     loadMatrices( false );
 }
 
@@ -153,6 +166,11 @@ void ofxCameraAnaglyph::disableColorMask() {
 //--------------------------------------------------------------
 void ofxCameraAnaglyph::toggleColorMask() {
     bColorMaskEnabled = !bColorMaskEnabled;
+}
+
+//--------------------------------------------------------------
+void ofxCameraAnaglyph::setRedEye( bool bLeftEye ) {
+    bLeftEyeRed = bLeftEye;
 }
 
 

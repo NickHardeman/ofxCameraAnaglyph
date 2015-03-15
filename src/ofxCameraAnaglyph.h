@@ -36,6 +36,8 @@ public:
     void disableColorMask();
     void toggleColorMask();
     
+    void setRedEye( bool bLeftEye );
+    
     ofParameter<bool> bStereo;
     ofParameter<float> eyeSeparation;
     ofParameter<float> focalLength;
@@ -56,6 +58,7 @@ protected:
     // need to run the camera at least once to calculate all of the settings
     bool bHasRunOnce;
     bool bColorMaskEnabled;
+    bool bLeftEyeRed;
 };
 
 
