@@ -31,6 +31,11 @@ public:
     void enableStereo();
     void disableStereo();
     
+    bool isColorMaskEnabled();
+    void enableColorMask();
+    void disableColorMask();
+    void toggleColorMask();
+    
     ofParameter<bool> bStereo;
     ofParameter<float> eyeSeparation;
     ofParameter<float> focalLength;
@@ -50,6 +55,7 @@ protected:
     
     // need to run the camera at least once to calculate all of the settings
     bool bHasRunOnce;
+    bool bColorMaskEnabled;
 };
 
 

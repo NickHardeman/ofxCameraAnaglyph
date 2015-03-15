@@ -17,6 +17,7 @@ ofxCameraAnaglyph::ofxCameraAnaglyph() {
     
     focalLength = 25.f;
     
+    enableColorMask();
     
     bHasRunOnce = false;
 }
@@ -27,14 +28,15 @@ void ofxCameraAnaglyph::beginLeft() {
         begin(); end();
         bHasRunOnce = true;
     }
+    
     calculateCamSettings( true );
-    glColorMask(true, false, false, true);
+    if(isColorMaskEnabled()) glColorMask(true, false, false, true);
     loadMatrices( true );
 }
 
 //--------------------------------------------------------------
 void ofxCameraAnaglyph::endLeft() {
-    glColorMask(true, true, true, true);
+    if(isColorMaskEnabled()) glColorMask(true, true, true, true);
     ofSetupScreen();
 }
 
@@ -48,20 +50,19 @@ void ofxCameraAnaglyph::beginRight() {
     calculateCamSettings( false );
     
     glClear(GL_DEPTH_BUFFER_BIT);
-    glColorMask(false, true, true, true);
-    
+    if(isColorMaskEnabled()) glColorMask(false, true, true, true);
     loadMatrices( false );
 }
 
 //--------------------------------------------------------------
 void ofxCameraAnaglyph::endRight() {
-    glColorMask(true, true, true, true);
+    if(isColorMaskEnabled()) glColorMask(true, true, true, true);
     ofSetupScreen();
 }
 
 //--------------------------------------------------------------
 void ofxCameraAnaglyph::endStereo() {
-    glColorMask(true, true, true, true);
+    if(isColorMaskEnabled()) glColorMask(true, true, true, true);
     ofSetupScreen();
 }
 
@@ -134,6 +135,25 @@ void ofxCameraAnaglyph::disableStereo() {
     bStereo = false;
 }
 
+//--------------------------------------------------------------
+bool ofxCameraAnaglyph::isColorMaskEnabled() {
+    return bColorMaskEnabled;
+}
+
+//--------------------------------------------------------------
+void ofxCameraAnaglyph::enableColorMask() {
+    bColorMaskEnabled = true;
+}
+
+//--------------------------------------------------------------
+void ofxCameraAnaglyph::disableColorMask() {
+    bColorMaskEnabled = false;
+}
+
+//--------------------------------------------------------------
+void ofxCameraAnaglyph::toggleColorMask() {
+    bColorMaskEnabled = !bColorMaskEnabled;
+}
 
 
 
