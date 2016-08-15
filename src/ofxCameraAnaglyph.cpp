@@ -135,7 +135,7 @@ bool ofxCameraAnaglyph::isStereo() {
 
 //--------------------------------------------------------------
 bool ofxCameraAnaglyph::isMono() {
-    return bStereo;
+    return !bStereo;
 }
 
 //--------------------------------------------------------------
