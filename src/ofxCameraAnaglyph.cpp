@@ -114,7 +114,8 @@ void ofxCameraAnaglyph::loadMatrices( bool bLeft ) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
     
-    ofVec3f r = getSideDir().getNormalized() * (eyeSeparation/3.f);
+    glm::vec3 n = glm::normalize(getSideDir());
+    auto r = n * (eyeSeparation/3.f);
     
     if( bLeft ) r *= -1.f;
     
